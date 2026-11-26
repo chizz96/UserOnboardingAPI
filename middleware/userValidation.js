@@ -2,14 +2,14 @@ const Joi = require("joi");
 
 exports.registerValidation = (req, res,next)=>{
     const schema = Joi.object({
-        fistName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "first name must entered",
-            "string.empty": "first name should not be empty",
-            "string.pattern.base":"first name cna not contain number, special character or empty space and must be at least 3 characters"
+            fistName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "first name must entered",
+                "string.empty": "first name should not be empty",
+                "string.pattern.base":"first name cna not contain number, special character or empty space and must be at least 3 characters"
         }), 
 
-        lastName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "last name must entered",
-            "string.empty": "last name should not be empty",
-            "string.pattern.base":"last name cna not contain number, special character or empty space and must be at least 3 characters"
+            lastName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "last name must entered",
+                "string.empty": "last name should not be empty",
+                "string.pattern.base":"last name cna not contain number, special character or empty space and must be at least 3 characters"
         }), 
         email: Joi.string().email().trim().required().message({
             "any.required": "Email is required",
@@ -39,7 +39,7 @@ exports.registerValidation = (req, res,next)=>{
     const { error } = schema.validate(req.body);
     
     if (error){
-        res.status(400).json({ error: error.details[0].message })
+        return res.status(400).json({ error: error.details[0].message })
     }
 
     next()
@@ -47,7 +47,7 @@ exports.registerValidation = (req, res,next)=>{
 
 
 exports.loginValidation = (req, res,next)=>{
-     const schema = Joi.object({
+    const schema = Joi.object({
         email: Joi.string().email().trim().required().message({
             "any.required": "Email is required",
             "string.empty": "Email cannot be empty",
@@ -67,7 +67,7 @@ exports.loginValidation = (req, res,next)=>{
     
 
     if (error){
-        res.status(400).json({ error: error.details[0].message })
+        return res.status(400).json({ error: error.details[0].message })
     }
 
     next()
@@ -87,7 +87,7 @@ exports.verifyEmailValidation = (req, res,next)=>{
     const { error } = schema.validate(req.body);
    
     if (error){
-        res.status(400).json({ error: error.details[0].message })
+        return res.status(400).json({ error: error.details[0].message })
     }
 
     next()
@@ -105,7 +105,7 @@ exports.forgotPasswordlValidation = (req, res,next)=>{
     const { error } = schema.validate(req.body);
    
     if (error){
-        res.status(400).json({ error: error.details[0].message })
+        return res.status(400).json({ error: error.details[0].message })
     }
 
     next()
@@ -135,7 +135,7 @@ exports.resetPasswordValidation = (req, res, next)=>{
     const { error } = schema.validate(req.body);
    
     if (error){
-        res.status(400).json({ error: error.details[0].message })
+        return res.status(400).json({ error: error.details[0].message })
     }
 
     next()
