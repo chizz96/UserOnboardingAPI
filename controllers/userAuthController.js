@@ -2,10 +2,10 @@ const userModel = require('../models/user')
 const bcrypt = require('bcrypt')
 const sendEmail = require('../utils/email')
 const otp_generate = require('otp-generator')
-//const jwt = require('jwt')
+const jwt = require('jsonwebtoken')
 
 
-exports.Register = async(req, res)=>{
+exports.register = async(req, res)=>{
     try{
         const { firstName, lastName, email, password, confirmPassword } = req.body
         const user = await userModel.fineOne({email:email.toLowerCase()})

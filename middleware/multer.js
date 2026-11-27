@@ -29,11 +29,11 @@ const limits = {
     fileSize: 1024 * 1024 * 5
 }
 
-const upload = {
+const upload =  multer({
     storage,
     filefilter,
     limits
-}
+})
 
 
 module.exports = upload
