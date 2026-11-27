@@ -152,7 +152,7 @@ exports.forgotPassword = async(req, res)=>{
             return res.status(404).json({message:`User not found`})
         }
 
-        const otp = otp_generate(6, {lowerCaseAlphabet: false, upperCaseAlphabet:false, specialChars:false})
+        const otp = otp_generate.generate(6, {lowerCaseAlphabet: false, upperCaseAlphabet:false, specialChars:false})
 
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
