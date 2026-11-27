@@ -1,4 +1,4 @@
-const userModel = require('../models/user')
+const userModels = require('../models/user')
 
 const cloudinary = require('../config/cloudinary')
 
@@ -9,7 +9,7 @@ const fs = require("fs")
 exports.getProfile = async(req, res)=>{
     try{
         const{ id } = req.user
-        const user = await userModel.findById(id)
+        const user = await userModels.findById(id)
 
         if (!user){
             return res.status(404).json({message:"User not found"})
@@ -40,14 +40,14 @@ exports.onboardUser = async(req, res)=>{
 
         const file = req.file
 
-        const user = await userModel.findById(id)
+        const user = await userModels.findById(id)
 
         if (!user){
             fs.unlinkSync(file.path)
             return res.status(404).json({message:"User not found"})
         }
 
-        const userPhoneNumber = await userModel.fineOne(phoneNumber)
+        const userPhoneNumber = await userModels.fineOne(phoneNumber)
 
         if(userPhoneNumber){
             return res.status(400).json({message:"Phone number already exist"})
@@ -63,7 +63,7 @@ exports.onboardUser = async(req, res)=>{
         if (dateOfBirth) data.dateOfBirth = dateOfBirth
 
         if (file){
-             await cloudinary.uploader.destroy(student.profilePicture.imageId);
+            await cloudinary.uploader.destroy(student.profilePicture.imageId);
 
             const result = await cloudinary.uploader.upload(file.path)
             data.profilePicture.imagePath = result.secure_url

@@ -1,4 +1,4 @@
-const userModel = require('../models/user')
+const userModels = require('../models/user')
 const bcrypt = require('bcrypt')
 const sendEmail = require('../utils/email')
 const otp_generate = require('otp-generator')
@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 exports.register = async(req, res)=>{
     try{
         const { firstName, lastName, email, password, confirmPassword } = req.body
-        const user = await userModel.findOne({email:email.toLowerCase()})
+        const user = await userModels.findOne({email:email.toLowerCase()})
 
         if(user){
             return res.status(400).json({message:`User with Email: ${email} already exist`})
@@ -36,7 +36,7 @@ exports.register = async(req, res)=>{
             otpExpiry
         };
 
-        const newUser = await userModel.create(data);
+        const newUser = await userModels.create(data);
 
         const emailContent = {
             subject:"Email Verification",
@@ -71,7 +71,7 @@ exports.verifyEmail = async(req, res)=>{
     try{
         const { email, otp } = req.body
         const date = new Date()
-        const user = await userModel.findOne({email:email.toLowerCase()})
+        const user = await userModels.findOne({email:email.toLowerCase()})
 
         if(!user){
             return res.status(404).json({message:`User not found`})
@@ -102,7 +102,7 @@ exports.verifyEmail = async(req, res)=>{
 exports.login = async(req, res)=>{
     try{
         const { email, password } = req.body;
-        const user = await userModel.findOne({ email: email.toLowerCase() })
+        const user = await userModels.findOne({ email: email.toLowerCase() })
 
         if(!user){
             return res.status(404).json({
@@ -146,7 +146,7 @@ exports.login = async(req, res)=>{
 exports.forgotPassword = async(req, res)=>{
     try{
         const { email } = req.body
-        const user = await userModel.findOne({email:email.toLowerCase()})
+        const user = await userModels.findOne({email:email.toLowerCase()})
 
         if(!user){
             return res.status(404).json({message:`User not found`})
@@ -184,7 +184,7 @@ exports.resetPassword = async (req, res) => {
     try{
         const { email, otp, newPassword, confirmPassword } = req.body
 
-        const user = await userModel.findOne({email:email.toLowerCase()})
+        const user = await userModels.findOne({email:email.toLowerCase()})
 
         const date = new Date()
 
@@ -229,7 +229,7 @@ exports.resetPassword = async (req, res) => {
 exports.getAuthUsers = async(req, res)=>{
     try{
         const{ id } = req.user
-        const user = await userModel.findById(id)
+        const user = await userModels.findById(id)
 
         if (!user){
             return res.status(404).json({message:"User not found"})
