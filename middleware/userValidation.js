@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 exports.registerValidation = (req, res,next)=>{
     const schema = Joi.object({
-            fistName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "first name must entered",
+            firstName: Joi.string().trim().pattern(new RegExp('^[A-Za-z]+$')).min(3).max(30).required().messages({"any.required": "first name must entered",
                 "string.empty": "first name should not be empty",
                 "string.pattern.base":"first name cna not contain number, special character or empty space and must be at least 3 characters"
         }), 
@@ -11,7 +11,7 @@ exports.registerValidation = (req, res,next)=>{
                 "string.empty": "last name should not be empty",
                 "string.pattern.base":"last name cna not contain number, special character or empty space and must be at least 3 characters"
         }), 
-        email: Joi.string().email().trim().required().message({
+        email: Joi.string().email().trim().required().messages({
             "any.required": "Email is required",
             "string.empty": "Email cannot be empty",
             "string.email":"Email must be a valid email"
@@ -48,7 +48,7 @@ exports.registerValidation = (req, res,next)=>{
 
 exports.loginValidation = (req, res,next)=>{
     const schema = Joi.object({
-        email: Joi.string().email().trim().required().message({
+        email: Joi.string().email().trim().required().messages({
             "any.required": "Email is required",
             "string.empty": "Email cannot be empty",
             "string.email":"Email must be a valid email"
@@ -75,7 +75,7 @@ exports.loginValidation = (req, res,next)=>{
 
 exports.verifyEmailValidation = (req, res,next)=>{
     const schema = Joi.object({
-        email: Joi.string().email().trim().required().message({
+        email: Joi.string().email().trim().required().messages({
             "any.required": "Email is required",
             "string.empty": "Email cannot be empty",
             "string.email":"Email must be a valid email"
@@ -95,7 +95,7 @@ exports.verifyEmailValidation = (req, res,next)=>{
 
 exports.forgotPasswordlValidation = (req, res,next)=>{
     const schema = Joi.object({
-        email: Joi.string().email().trim().lowercase().required().message({
+        email: Joi.string().email().trim().lowercase().required().messages({
             "any.required": "Email is required",
             "string.empty": "Email cannot be empty",
             "string.email":"Email must be a valid email"

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 exports.register = async(req, res)=>{
     try{
         const { firstName, lastName, email, password, confirmPassword } = req.body
-        const user = await userModel.fineOne({email:email.toLowerCase()})
+        const user = await userModel.findOne({email:email.toLowerCase()})
 
         if(user){
             return res.status(400).json({message:`User with Email: ${email} already exist`})
@@ -146,7 +146,7 @@ exports.login = async(req, res)=>{
 exports.forgotPassword = async(req, res)=>{
     try{
         const { email } = req.body
-        const user = await userModel.fineOne({email:email.toLowerCase()})
+        const user = await userModel.findOne({email:email.toLowerCase()})
 
         if(!user){
             return res.status(404).json({message:`User not found`})
