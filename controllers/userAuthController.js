@@ -23,7 +23,7 @@ exports.register = async(req, res)=>{
         const saltRounds = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, saltRounds)
 
-        const otp = otp_generate(6,{lowerCaseAlphabet: false, upperCaseAlphabet:false, specialChars:false});
+       const otp = otp_generate.generate(6, {lowerCaseAlphabet: false, upperCaseAlphabet:false, specialChars:false})
 
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
